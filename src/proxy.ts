@@ -6,6 +6,12 @@ const session = require('express-session');
 
 app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 60000 } }));
 
+axios.defaults.headers.common['Accept-Language'] =
+  'zh-CN,zh;q=0.9,en-US;q=0.8,en;';
+
+axios.defaults.headers.common['User-Agent'] =
+  'Mozilla/5.0 (X11; Linux x86_64; rv:12.0) Gecko/20100101 Firefox/21.0';
+
 app.use('/http(s)?*', async (req, res) => {
   const temp = req.originalUrl;
   const temp1 = temp.replace('/http', 'http');

@@ -5,8 +5,11 @@
   "main": "src/main.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon src/proxy.ts",
-    "start:proxy": "nodemon src/proxy.ts"
+    "start:proxy": "ts-node src/proxy.ts",
+    "start:proxy1": "nodemon src/proxy.ts"
+  },
+  "engines": {
+    "node": "18.x"
   },
   "keywords": [
     "proxy"
