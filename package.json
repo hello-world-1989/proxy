@@ -1,0 +1,27 @@
+{
+  "name": "proxy-server",
+  "version": "1.0.0",
+  "description": "google proxy",
+  "main": "src/main.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon src/proxy.ts",
+    "start:proxy": "nodemon src/proxy.ts"
+  },
+  "keywords": [
+    "proxy"
+  ],
+  "author": "end",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.5.1",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "nodemon": "^3.0.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.8.6"
+  }
+}
