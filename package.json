@@ -8,9 +8,6 @@
     "start:prod": "ts-node src/proxy.ts",
     "start": "nodemon src/proxy.ts"
   },
-  "engines": {
-    "node": "18.x"
-  },
   "keywords": [
     "proxy"
   ],
