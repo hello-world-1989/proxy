@@ -26,9 +26,11 @@ npm install -g  pm2 typescript
 echo "export PORT=80" >> ~/.bashrc
 source ~/.bashrc
 
-# ---------------run every update--------------------------
+# -----------------------------------------
 tsc ~/proxy-main/src/proxy.ts
 pm2 start ~/proxy-main/src/proxy.js -n app
+
+pm2 restart app
 # -----------------------------------------
 
 
