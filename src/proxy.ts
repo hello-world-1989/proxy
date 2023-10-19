@@ -1,16 +1,15 @@
 import axios from 'axios';
-
-const app = require('express')();
-
-const session = require('express-session');
-
-app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 60000 } }));
+import path from 'path';
+import express from 'express';
+const app = express();
 
 axios.defaults.headers.common['Accept-Language'] =
   'zh-CN,zh;q=0.9,en-US;q=0.8,en;';
 
 axios.defaults.headers.common['User-Agent'] =
   'Mozilla/5.0 (X11; Linux x86_64; rv:12.0) Gecko/20100101 Firefox/21.0';
+
+app.use('/main', express.static(path.join(__dirname, '../public/temp-main')));
 
 app.use('/http(s)?*', async (req, res) => {
   const temp = req.originalUrl;
@@ -20,9 +19,9 @@ app.use('/http(s)?*', async (req, res) => {
 
   const hostname = url.hostname;
 
-  req.session.host = temp1.includes('https://')
-    ? 'https://' + hostname
-    : 'http://' + hostname;
+  // req.session.host = temp1.includes('https://')
+  //   ? 'https://' + hostname
+  //   : 'http://' + hostname;
   try {
     const response = await axios.get(temp1);
     res.send(response.data);
@@ -57,7 +56,7 @@ app.use('/url', async (req, res) => {
   }
 });
 
-app.use('/', async (req, res) => {
+app.use('/google', async (req, res) => {
   try {
     const response = await axios.get('https://www.google.com');
 
@@ -89,4 +88,4 @@ app.use('/', async (req, res) => {
 
 const port = process.env.PORT || 3001;
 
-app.listen(port);
+app.listen(port, () => console.log(`listening on port ${port}`));
