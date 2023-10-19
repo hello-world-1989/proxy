@@ -17,13 +17,13 @@ const proxy = httpProxy.createProxyServer({
 
 const app = express();
 
+app.use('/', express.static(path.join(__dirname, '../public/temp-main')));
+
 axios.defaults.headers.common['Accept-Language'] =
   'zh-CN,zh;q=0.9,en-US;q=0.8,en;';
 
 axios.defaults.headers.common['User-Agent'] =
   'Mozilla/5.0 (X11; Linux x86_64; rv:12.0) Gecko/20100101 Firefox/21.0';
-
-// app.use('/', express.static(path.join(__dirname, '../public/temp-main')));
 
 app.use('/http(s)?*', async (req, res) => {
   const temp = req.originalUrl;
@@ -111,7 +111,7 @@ app.use('/url', async (req, res) => {
   }
 });
 
-app.use('/', async (req, res) => {
+app.use('/google', async (req, res) => {
   try {
     // const response = await axios.get('https://www.google.com');
 
@@ -134,10 +134,6 @@ app.use('/', async (req, res) => {
   }
 });
 
-const port = process.env.PORT2 || 3002;
+const port = process.env.PORT || 80;
 
-app.listen(8080, () => console.log(`listening on port ${port}`));
-
-// http
-//   .createServer(app)
-//   .listen(port, () => console.log(`listening on port ${port}`));
+app.listen(port, () => console.log(`listening on port ${port}`));
