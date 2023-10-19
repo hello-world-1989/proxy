@@ -27,7 +27,7 @@ npm install
 # npm install -g npm@10.2.1
 npm install -g  pm2 typescript
 
-echo "export PORT1=80" >> ~/.bashrc
+echo "export PORT=80" >> ~/.bashrc
 echo "export PORT2=8080" >> ~/.bashrc
 source ~/.bashrc
 
@@ -39,9 +39,9 @@ pm2 restart proxy
 
 
 
-tsc ~/proxy-main/src/web.ts
-pm2 start ~/proxy-main/src/web.js -n web --time 
-pm2 restart web
+# tsc ~/proxy-main/src/web.ts
+# pm2 start ~/proxy-main/src/web.js -n web --time 
+# pm2 restart web
 # -----------------------------------------
 
 
