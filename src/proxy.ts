@@ -10,7 +10,10 @@ axios.defaults.headers.common['Accept-Language'] =
 axios.defaults.headers.common['User-Agent'] =
   'Mozilla/5.0 (X11; Linux x86_64; rv:12.0) Gecko/20100101 Firefox/21.0';
 
-app.use('/main', express.static(path.join(__dirname, '../public/temp-main')));
+app.use(
+  '/',
+  express.static(path.join(__dirname, '../public/temp-main/readme.html'))
+);
 
 app.use('/http(s)?*', async (req, res) => {
   const temp = req.originalUrl;
