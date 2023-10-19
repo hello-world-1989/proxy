@@ -23,14 +23,21 @@ npm install
 # npm install -g npm@10.2.1
 npm install -g  pm2 typescript
 
-echo "export PORT=80" >> ~/.bashrc
+echo "export PORT1=80" >> ~/.bashrc
+echo "export PORT2=8080" >> ~/.bashrc
 source ~/.bashrc
 
 # -----------------------------------------
 tsc ~/proxy-main/src/proxy.ts
-pm2 start ~/proxy-main/src/proxy.js -n app
+pm2 start ~/proxy-main/src/proxy.js -n proxy --time 
+pm2 restart proxy
 
-pm2 restart app
+
+
+
+tsc ~/proxy-main/src/web.ts
+pm2 start ~/proxy-main/src/web.js -n web --time 
+pm2 restart web
 # -----------------------------------------
 
 
@@ -49,10 +56,3 @@ mv main.zip temp.zip
 unzip temp.zip
 
 mv temp-main ./proxy-main/public
-
-
-#port 1024-65525
-sudo bash -c "$(wget -qO- https://raw.githubusercontent.com/Jigsaw-Code/outline-server/master/src/server_manager/install_scripts/install_server.sh)"
-
-#set data limit
-
