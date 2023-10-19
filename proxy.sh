@@ -49,3 +49,10 @@ mv main.zip temp.zip
 unzip temp.zip
 
 mv temp-main ./proxy-main/public
+
+
+#port 1024-65525
+sudo bash -c "$(wget -qO- https://raw.githubusercontent.com/Jigsaw-Code/outline-server/master/src/server_manager/install_scripts/install_server.sh)"
+
+#set data limit
+
