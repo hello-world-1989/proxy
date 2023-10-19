@@ -1,6 +1,7 @@
 import axios from 'axios';
-import path from 'path';
-import express from 'express';
+import * as path from 'path';
+import * as express from 'express';
+
 const app = express();
 
 axios.defaults.headers.common['Accept-Language'] =
@@ -89,3 +90,7 @@ app.use('/google', async (req, res) => {
 const port = process.env.PORT || 3001;
 
 app.listen(port, () => console.log(`listening on port ${port}`));
+
+// http
+//   .createServer(app)
+//   .listen(port, () => console.log(`listening on port ${port}`));
