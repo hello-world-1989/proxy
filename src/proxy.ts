@@ -1,5 +1,4 @@
 import axios from 'axios';
-import * as path from 'path';
 import * as express from 'express';
 
 const app = express();
@@ -10,10 +9,7 @@ axios.defaults.headers.common['Accept-Language'] =
 axios.defaults.headers.common['User-Agent'] =
   'Mozilla/5.0 (X11; Linux x86_64; rv:12.0) Gecko/20100101 Firefox/21.0';
 
-app.use(
-  '/',
-  express.static(path.join(__dirname, '../public/temp-main/'))
-);
+// app.use('/', express.static(path.join(__dirname, '../public/temp-main')));
 
 app.use('/http(s)?*', async (req, res) => {
   const temp = req.originalUrl;
@@ -60,7 +56,7 @@ app.use('/url', async (req, res) => {
   }
 });
 
-app.use('/google', async (req, res) => {
+app.use('/', async (req, res) => {
   try {
     const response = await axios.get('https://www.google.com');
 
@@ -90,7 +86,7 @@ app.use('/google', async (req, res) => {
 //   }
 // });
 
-const port = process.env.PORT || 3001;
+const port = process.env.PORT2 || 3002;
 
 app.listen(port, () => console.log(`listening on port ${port}`));
 
