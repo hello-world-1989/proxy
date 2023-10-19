@@ -1,5 +1,19 @@
 import axios from 'axios';
 import * as express from 'express';
+import * as httpProxy from 'http-proxy';
+import * as fs from 'fs';
+import * as path from 'path';
+
+const proxy = httpProxy.createProxyServer({
+  target: {
+    protocol: 'https:',
+    host: 'www.google.com',
+    port: 443,
+    pfx: fs.readFileSync(path.join(__dirname, './keyStore.p12')),
+    passphrase: 'password',
+  },
+  changeOrigin: true,
+});
 
 const app = express();
 
@@ -23,20 +37,49 @@ app.use('/http(s)?*', async (req, res) => {
   //   ? 'https://' + hostname
   //   : 'http://' + hostname;
   try {
-    const response = await axios.get(temp1);
-    res.send(response.data);
+    // const response = await axios.get(temp1);
+
+    const proxyRes: any = await new Promise((resolve, reject) => {
+      proxy.web(req, res, { target: temp1 }, (err) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(res);
+        }
+      });
+    });
+
+    res.send(proxyRes.data);
   } catch (err) {
+    console.log(err);
     res.send('');
   }
 });
 
 app.use('/search', async (req, res) => {
   try {
-    const response = await axios.get(
-      'https://www.google.com' + req.originalUrl
-    );
-    res.send(response.data);
+    // const response = await axios.get(
+    //   'https://www.google.com' + req.originalUrl
+    // );
+
+    const proxyRes: any = await new Promise((resolve, reject) => {
+      proxy.web(
+        req,
+        res,
+        { target: 'https://www.google.com' + req.originalUrl },
+        (err) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(res);
+          }
+        }
+      );
+    });
+
+    res.send(proxyRes.data);
   } catch (err) {
+    console.log(err);
     res.send('');
   }
 });
@@ -49,46 +92,51 @@ app.use('/url', async (req, res) => {
   const url = temp1?.[0];
 
   try {
-    const response = await axios.get(url);
-    res.send(response.data);
+    // const response = await axios.get(url);
+
+    const proxyRes: any = await new Promise((resolve, reject) => {
+      proxy.web(req, res, { target: url }, (err) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(res);
+        }
+      });
+    });
+
+    res.send(proxyRes.data);
   } catch (err) {
+    console.log(err);
     res.send('');
   }
 });
 
 app.use('/', async (req, res) => {
   try {
-    const response = await axios.get('https://www.google.com');
+    // const response = await axios.get('https://www.google.com');
 
-    res.send(response.data);
+    const proxyRes: any = await new Promise((resolve, reject) => {
+      proxy.web(req, res, { target: 'https://www.google.com' }, (err) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(res);
+        }
+      });
+    });
+
+    console.log('proxyRes: ', proxyRes);
+
+    res.send(proxyRes?.data);
   } catch (err) {
+    console.log(err);
     res.send('');
   }
 });
 
-// app.use('*', async (req, res) => {
-//   console.log('url: ', req.url);
-//   // console.log('headers: ', req.headers);
-
-//   const host = req.session.host;
-
-//   const temp = new URL(req.headers.referer);
-//   const temp1 = temp.pathname;
-
-//   console.log('host: ', host);
-//   console.log('temp1: ', temp1);
-
-//   try {
-//     const response = await axios.get(host + temp1);
-//     res.send(response.data);
-//   } catch (err) {
-//     res.send('');
-//   }
-// });
-
 const port = process.env.PORT2 || 3002;
 
-app.listen(port, () => console.log(`listening on port ${port}`));
+app.listen(8080, () => console.log(`listening on port ${port}`));
 
 // http
 //   .createServer(app)
