@@ -2,11 +2,11 @@
   "name": "proxy-server",
   "version": "1.0.0",
   "description": "google proxy",
-  "main": "src/main.ts",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start:proxy": "ts-node src/proxy.ts",
-    "start:proxy1": "nodemon src/proxy.ts"
+    "test": "jest",
+    "start:prod": "ts-node src/proxy.ts",
+    "start": "nodemon src/proxy.ts"
   },
   "engines": {
     "node": "18.x"
@@ -19,12 +19,18 @@
   "dependencies": {
     "axios": "^1.5.1",
     "express": "^4.18.2",
-    "express-session": "^1.17.3",
     "nodemon": "^3.0.1",
-    "ts-node": "^10.9.1",
+    "serve-static": "^1.15.0",
     "typescript": "^5.2.2"
   },
   "devDependencies": {
-    "@types/node": "^20.8.6"
+    "@babel/core": "^7.23.2",
+    "@babel/preset-env": "^7.23.2",
+    "@babel/preset-typescript": "^7.23.2",
+    "@types/express": "^4.17.20",
+    "@types/jest": "^29.5.6",
+    "babel-jest": "^29.7.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.1"
   }
 }
