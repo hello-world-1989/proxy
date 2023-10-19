@@ -2,6 +2,10 @@
 apt install unzip -y
 # apt install language-pack-zh-hans-base  language-pack-zh-hans -y
 
+
+rm -rf proxy-main
+rm -rf proxy.zip
+
 wget https://github.com/hello-world-1989/proxy/archive/refs/heads/main.zip
 mv main.zip proxy.zip
 
@@ -56,3 +60,4 @@ mv main.zip temp.zip
 unzip temp.zip
 
 mv temp-main ./proxy-main/public
+cp ~/proxy-main/public/temp-main/readme.html ~/proxy-main/public/temp-main/index.html
