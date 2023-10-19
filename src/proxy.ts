@@ -12,7 +12,7 @@ axios.defaults.headers.common['User-Agent'] =
 
 app.use(
   '/',
-  express.static(path.join(__dirname, '../public/temp-main/readme.html'))
+  express.static(path.join(__dirname, '../public/temp-main/'))
 );
 
 app.use('/http(s)?*', async (req, res) => {
